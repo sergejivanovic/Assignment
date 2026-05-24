@@ -1,4 +1,5 @@
 ﻿using Assignment.Commands;
+using Assignment.Models;
 using System;
 using System.Collections.Generic;
 using System.Windows.Input;
@@ -9,6 +10,8 @@ namespace Assignment.ViewModels
     {
         private string _itemName { get; set; }
         private int _selectedPriority { get; set; }
+        private readonly Action<Item> _submit;
+
         public string ItemName
         {
             get => _itemName;
@@ -32,20 +35,23 @@ namespace Assignment.ViewModels
 
         public ICommand SubmitCommand { get; private set; }
 
-        public ToDoSubmitViewModel() 
-        {
-            Initialize();
-        }
-
-        private void Initialize()
+        public ToDoSubmitViewModel(Action<Item> submitItems) 
         {
             SubmitCommand = new RelayCommand(SubmitItem);
             Priorities = new List<int> { 1, 2, 3};
+            _submit = submitItems;
+            SelectedPriority = 1;
         }
 
         private void SubmitItem(object obj)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrWhiteSpace(ItemName))
+            {
+                return;
+            }
+
+            _submit(new Item { Name = ItemName, Priority = SelectedPriority });
+            ItemName = string.Empty;
         }
     }
 }
