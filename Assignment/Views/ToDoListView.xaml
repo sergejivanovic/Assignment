@@ -12,10 +12,26 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="200"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"></RowDefinition>
-            </Grid.RowDefinitions>
 
+            <ListBox Grid.Column="0" ItemsSource="{Binding Items}" Margin="0,0,5,0">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        <Setter Property="Padding" Value="0"/>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border Background="{Binding Color}" Padding="8,4">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Name}" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding Priority, StringFormat=' (P{0})'}" VerticalAlignment="Center" Foreground="#444"/>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            
             <!--Submit form-->
             <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1"  Grid.Row="0" Grid.Column="1">
                 <ContentControl x:Name="ToDoSubmitViewModel"/>
