@@ -1,3 +1,4 @@
+using Assignment.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Assignment.Tests.Loaders
@@ -18,35 +19,36 @@ namespace Assignment.Tests.Loaders
         public void Progress_WhenElapsedIsHalfOfDuration_Returns50()
         {
             // Arrange
+            var worker = new ThreadWorker(50);
+
             // Kreiraj ThreadWorker sa Duration = 50 i postavi Elapsed = 25
-            // var worker = ...
+            worker.Elapsed = 25;
 
             // Act
             // Uzmi vrednost Progress-a
-            // double result = worker.Progress;
+            double result = worker.Progress;
 
             // Assert
             // Ocekujemo da je progress tacno 50%
-            // Assert.AreEqual(50.0, result);
-
-            Assert.Inconclusive("Ukloni ovu liniju, kreiraj ThreadWorker i implementiraj test.");
+            Assert.AreEqual(50.0, result);
         }
 
         [TestMethod]
         public void Progress_WhenCompleted_Returns100()
         {
             // Arrange
+            var worker = new ThreadWorker(30);
+
             // Kreiraj ThreadWorker sa Duration = 30 i postavi Elapsed = 30
-            // var worker = ...
+            worker.Elapsed = 30;
+
 
             // Act
-            // double result = worker.Progress;
+            double result = worker.Progress;
 
             // Assert
             // Ocekujemo 100%
-            // Assert.AreEqual(100.0, result);
-
-            Assert.Inconclusive("Ukloni ovu liniju, kreiraj ThreadWorker i implementiraj test.");
+            Assert.AreEqual(100.0, result);
         }
 
         [TestMethod]
@@ -54,17 +56,15 @@ namespace Assignment.Tests.Loaders
         {
             // Arrange
             // Kreiraj ThreadWorker
-            // var worker = ...
+            var worker = new ThreadWorker(30);
 
             // Act
             // Pozovi Cancel()
-            // worker.Cancel();
+            worker.Cancel();
 
             // Assert
             // Nakon Cancel(), IsActive treba biti false
-            // Assert.IsFalse(worker.IsActive);
-
-            Assert.Inconclusive("Ukloni ovu liniju, kreiraj ThreadWorker i implementiraj test.");
+            Assert.IsFalse(worker.IsActive);
         }
     }
 }
